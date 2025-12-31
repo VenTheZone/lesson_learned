@@ -33,9 +33,13 @@ opencode
 /init
 ```
 
-### 3. Use the Smart Task Command
+### 3. Use the Continual Learning Workflow
 
-Instead of typing your task directly, use:
+You have two options for using continual learning:
+
+#### Option A: Use the Command (Recommended for Interactive Use)
+
+Invoke the smart-task command:
 ```
 /smart-task [your task description]
 ```
@@ -51,14 +55,34 @@ The command will:
 - Ask if there were any issues
 - Update the knowledge base if needed
 
+#### Option B: Load the Skill (For System-Wide Behavior)
+
+Load the continual learning skill to enable automatic learning behavior:
+```
+/load continual-learning
+```
+
+The skill provides:
+- Automatic lesson loading before tasks
+- Built-in reflection prompts after completion
+- Knowledge update guidelines
+- Best practices documentation
+
+**When to use each:**
+- **`/smart-task`**: Interactive sessions where you want explicit guidance
+- **`/load continual-learning`**: Enable continual learning as a persistent capability across the session
+
 ## 📁 Structure
 
 ```
 .opencode/
 ├── memory/
 │   └── lessons_learned.md    # Knowledge base (Do's, Don'ts, Edge Cases)
-└── command/
-    └── smart-task.md         # Custom command implementing the loop
+├── command/
+│   └── smart-task.md         # Custom command implementing the loop
+└── skill/
+    └── continual-learning/
+        └── SKILL.md          # Loadable skill for continual learning behavior
 ```
 
 ## 📚 The Knowledge Base
@@ -89,7 +113,7 @@ The `lessons_learned.md` file stores cumulative intelligence in four categories:
 
 ## 🎬 How It Works
 
-### Example Session
+### Using the Smart Task Command
 
 **User:** `/smart-task Add a cache to the database queries`
 
@@ -118,6 +142,27 @@ The `lessons_learned.md` file stores cumulative intelligence in four categories:
 > ```
 
 Next time, `/smart-task` will know about cache invalidation!
+
+### Using the Continual Learning Skill
+
+**User:** `/load continual-learning`
+
+**AI:** Skill loaded. I now have continual learning capabilities.
+
+**User:** Add a cache to the database queries
+
+**AI (Automatic):**
+> Before starting: Reading lessons_learned.md...
+> Found relevant lesson: "Don't cache mutable database results - create copies before caching"
+>
+> Executing task with these lessons in mind...
+> Implementing cache with Redis, creating result copies before caching...
+> Cache implementation complete.
+>
+> Reflection: Task succeeded. Discovered cache invalidation requirement.
+> Adding to lessons_learned.md...
+
+The skill makes continual learning automatic - no need to invoke `/smart-task` every time.
 
 ## 💡 Best Practices
 
