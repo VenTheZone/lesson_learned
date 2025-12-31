@@ -1,0 +1,34 @@
+# OpenCode cache and temporary files
+.opencode/cache/
+.opencode/tmp/
+
+# Session logs (large and not needed for version control)
+.opencode/sessions/
+
+# Node modules (if using Node.js in project)
+node_modules/
+
+# Environment files with sensitive data
+.env
+.env.local
+*.env
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
+*.log
+
+# But keep the knowledge base!
+!.opencode/memory/
+!.opencode/command/
