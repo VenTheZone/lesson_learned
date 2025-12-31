@@ -11,7 +11,15 @@
 *Use this section to document successful patterns and approaches.*
 
 ### General
-<!-- Add entries like: "Always use async/await for database operations" -->
+- **Skill Loading**: Use `/continual-learning` or `skill continual-learning` to load continual learning capability
+  - Skills make workflows discoverable and shareable via GitHub
+  - Skills provide on-demand guidance without explicit command invocation
+  - Related: `.opencode/skill/<name>/SKILL.md`
+
+- **Read First**: Always read a file before editing it
+  - Prevents overwriting existing content
+  - Required by Edit tool for safety
+  - Related: `read` tool usage
 
 ### Code Quality
 <!-- Add entries like: "Write unit tests before implementing features" -->
