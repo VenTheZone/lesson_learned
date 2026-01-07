@@ -147,6 +147,19 @@ The `config.json` file controls behavior of activity capture and cleanup:
 
 For full configuration options, see `.opencode/command/templates/config.schema.json`
 
+## 🚀 Future Enhancements
+
+Planned improvements for living documentation:
+
+- **Performance Analytics**: Track task duration, file modification patterns, and bottlenecks
+- **Predictive Intelligence**: Proactively suggest patterns and warn about recurring issues
+- **Team Dashboard**: Visualize knowledge health, productivity metrics, and trends
+- **IDE Integration**: Real-time suggestions and inline context from activity logs
+- **Advanced Search**: Natural language queries and semantic pattern matching
+- **Cross-Project Sync**: Aggregate lessons across team repositories
+
+See the project issues for detailed enhancement proposals and discussion.
+
 ## 🛠️ Development & Contribution
 
 To contribute to this plugin:
