@@ -11,8 +11,11 @@ echo "🚀 Initializing Continual Learning workflow..."
 mkdir -p .opencode/memory
 mkdir -p .opencode/command
 mkdir -p .opencode/skill
+mkdir -p .opencode/command/templates
 
-# Create lessons file
+cp .opencode/command/templates/activity_log_template.md .opencode/memory/activity_log.md
+cp .opencode/command/templates/config_template.json .opencode/config.json
+
 cat > .opencode/memory/lessons_learned.md << 'EOF'
 # Lessons Learned
 
@@ -325,7 +328,6 @@ Use this skill when:
 *Remember: Every task is an opportunity to learn. Record the insights.*
 EOF
 
-# Create .gitignore
 cat > .gitignore << 'EOF'
 # OpenCode cache and temporary files
 .opencode/cache/
@@ -333,6 +335,10 @@ cat > .gitignore << 'EOF'
 
 # Session logs (large and not needed for version control)
 .opencode/sessions/
+
+# Activity logs (auto-generated, too noisy for version control)
+.opencode/memory/activity_log.md
+.opencode/memory/activity_archive.md
 
 # Node modules (if using Node.js in project)
 node_modules/
@@ -358,8 +364,8 @@ dist/
 build/
 *.log
 
-# But keep the knowledge base!
-!.opencode/memory/
+# But keep the knowledge base and templates!
+!.opencode/memory/lessons_learned.md
 !.opencode/command/
 !.opencode/skill/
 EOF
@@ -446,12 +452,19 @@ echo "✅ Continual Learning initialized!"
 echo ""
 echo "📝 Files created:"
 echo "  - .opencode/memory/lessons_learned.md"
+echo "  - .opencode/memory/activity_log.md (auto-generated, git-ignored)"
+echo "  - .opencode/config.json (configuration)"
 echo "  - .opencode/command/smart-task.md"
+echo "  - .opencode/command/clean-activity.md"
+echo "  - .opencode/command/templates/activity_log_template.md"
+echo "  - .opencode/command/templates/config_template.json"
 echo "  - .opencode/skill/continual-learning/SKILL.md"
 echo "  - .gitignore"
 echo "  - README.md"
 echo ""
 echo "🚀 Next steps:"
 echo "  1. Review .opencode/memory/lessons_learned.md"
-echo "  2. Use '/smart-task' for tasks or load 'skill continual-learning'"
-echo "  3. Commit .opencode/ to share with your team"
+echo "  2. Customize .opencode/config.json for your preferences"
+echo "  3. Use '/smart-task' for tasks or load 'skill continual-learning'"
+echo "  4. Run '/clean-activity' to manage activity logs (auto-generated after tasks)"
+echo "  5. Commit .opencode/ to share with your team (activity_log.md is ignored)"

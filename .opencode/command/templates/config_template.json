@@ -1,0 +1,91 @@
+{
+  "$schema": "./config.schema.json",
+  "version": "1.0",
+  "activity_capture": {
+    "enabled": true,
+    "patterns": {
+      "todos": [
+        "TODO:",
+        "FIXME:",
+        "XXX:",
+        "HACK:",
+        "NOTE:",
+        "// TODO",
+        "// FIXME",
+        "# TODO",
+        "# FIXME"
+      ],
+      "debug": [
+        "console.log(",
+        "console.debug(",
+        "console.warn(",
+        "debugger",
+        "// DEBUG",
+        "/* DEBUG */",
+        "# DEBUG"
+      ],
+      "errors": [
+        "Error:",
+        "throw new Error",
+        "catch (error)",
+        "exception",
+        "failed",
+        "Failed to",
+        "ECONNREFUSED",
+        "ETIMEDOUT",
+        "ENOTFOUND"
+      ]
+    },
+    "auto_tagging": {
+      "enabled": true,
+      "mappings": {
+        "auth": ["auth", "login", "logout", "jwt", "token", "session", "password", "oauth"],
+        "database": ["db", "database", "sql", "query", "model", "migration", "connection", "pool"],
+        "api": ["api", "route", "endpoint", "controller", "handler", "request", "response"],
+        "frontend": ["component", "hook", "state", "render", "props", "jsx", "tsx", "vue", "svelte"],
+        "backend": ["server", "service", "middleware", "controller", "repository"],
+        "testing": ["test", "spec", "mock", "stub", "fixture"],
+        "config": ["config", "env", "settings", "options"],
+        "deployment": ["deploy", "docker", "kubernetes", "k8s", "ci", "cd", "build"]
+      }
+    }
+  },
+  "cleanup": {
+    "auto_cleanup": false,
+    "cleanup_interval_days": 7,
+    "archive_after_days": 30,
+    "deduplication": {
+      "enabled": true,
+      "similarity_threshold": 0.8
+    }
+  },
+  "promotion": {
+    "enabled": true,
+    "thresholds": {
+      "error_promote_count": 3,
+      "todo_promote_days": 14,
+      "edge_case_count": 3
+    },
+    "auto_promote": false,
+    "sections": {
+      "errors": "Don'ts",
+      "todo_solutions": "Do's",
+      "edge_cases": "Edge Cases & Gotchas"
+    }
+  },
+  "retention": {
+    "activity_log_max_size_kb": 100,
+    "archive_max_files": 10,
+    "archive_compress_days": 90
+  },
+  "smart_task": {
+    "auto_capture": true,
+    "skip_trivial_tasks": true,
+    "trivial_task_threshold_minutes": 5
+  },
+  "notifications": {
+    "promote_alerts": false,
+    "cleanup_reminders": false,
+    "weekly_summary": false
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Continual Learning Activity Log Configuration",
+  "description": "Configuration for the living documentation feature in lesson_learned plugin",
+  "type": "object",
+  "required": ["version", "activity_capture"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Configuration version format",
+      "default": "1.0"
+    },
+    "activity_capture": {
+      "type": "object",
+      "description": "Settings for automatic activity capture",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable automatic activity capture during smart-task execution",
+          "default": true
+        },
+        "patterns": {
+          "type": "object",
+          "description": "Patterns to scan for in session transcripts",
+          "properties": {
+            "todos": {
+              "type": "array",
+              "description": "Patterns that indicate TODO items or deferred work",
+              "items": {
+                "type": "string"
+              },
+              "default": ["TODO:", "FIXME:", "XXX:", "HACK:"]
+            },
+            "debug": {
+              "type": "array",
+              "description": "Patterns that indicate debug statements or temporary code",
+              "items": {
+                "type": "string"
+              },
+              "default": ["console.log(", "console.debug(", "debugger"]
+            },
+            "errors": {
+              "type": "array",
+              "description": "Patterns that indicate errors or exceptions",
+              "items": {
+                "type": "string"
+              },
+              "default": ["Error:", "throw new Error", "catch (error)"]
+            }
+          }
+        },
+        "auto_tagging": {
+          "type": "object",
+          "description": "Automatic tag detection based on file paths and content",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Enable automatic tag detection",
+              "default": true
+            },
+            "mappings": {
+              "type": "object",
+              "description": "Keyword to tag mappings",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "description": "Settings for automatic cleanup and maintenance",
+      "properties": {
+        "auto_cleanup": {
+          "type": "boolean",
+          "description": "Enable automatic cleanup during /smart-task execution",
+          "default": false
+        },
+        "cleanup_interval_days": {
+          "type": "integer",
+          "description": "Number of days between automatic cleanups",
+          "default": 7,
+          "minimum": 1
+        },
+        "archive_after_days": {
+          "type": "integer",
+          "description": "Number of days after which entries are archived",
+          "default": 30,
+          "minimum": 7
+        },
+        "deduplication": {
+          "type": "object",
+          "description": "Settings for duplicate detection and merging",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Enable automatic deduplication during cleanup",
+              "default": true
+            },
+            "similarity_threshold": {
+              "type": "number",
+              "description": "Similarity threshold for detecting duplicates (0.0-1.0)",
+              "default": 0.8,
+              "minimum": 0.0,
+              "maximum": 1.0
+            }
+          }
+        }
+      }
+    },
+    "promotion": {
+      "type": "object",
+      "description": "Settings for promoting activity entries to lessons_learned.md",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable promotion of recurring patterns",
+          "default": true
+        },
+        "thresholds": {
+          "type": "object",
+          "description": "Thresholds for automatic promotion",
+          "properties": {
+            "error_promote_count": {
+              "type": "integer",
+              "description": "Number of error occurrences to promote to lessons",
+              "default": 3,
+              "minimum": 2
+            },
+            "todo_promote_days": {
+              "type": "integer",
+              "description": "Days before unresolved TODOs are promoted",
+              "default": 14,
+              "minimum": 7
+            },
+            "edge_case_count": {
+              "type": "integer",
+              "description": "Number of edge case occurrences to promote",
+              "default": 3,
+              "minimum": 2
+            }
+          }
+        },
+        "auto_promote": {
+          "type": "boolean",
+          "description": "Automatically promote recurring patterns without manual review",
+          "default": false
+        },
+        "sections": {
+          "type": "object",
+          "description": "Mapping of entry types to lessons_learned.md sections",
+          "properties": {
+            "errors": {
+              "type": "string",
+              "description": "Section name for error promotions",
+              "default": "Don'ts"
+            },
+            "todo_solutions": {
+              "type": "string",
+              "description": "Section name for TODO solution promotions",
+              "default": "Do's"
+            },
+            "edge_cases": {
+              "type": "string",
+              "description": "Section name for edge case promotions",
+              "default": "Edge Cases & Gotchas"
+            }
+          }
+        }
+      }
+    },
+    "retention": {
+      "type": "object",
+      "description": "Retention and storage policies",
+      "properties": {
+        "activity_log_max_size_kb": {
+          "type": "integer",
+          "description": "Maximum size of activity_log.md before forcing cleanup",
+          "default": 100,
+          "minimum": 10
+        },
+        "archive_max_files": {
+          "type": "integer",
+          "description": "Maximum number of archive files to keep",
+          "default": 10,
+          "minimum": 1
+        },
+        "archive_compress_days": {
+          "type": "integer",
+          "description": "Age in days after which archives are compressed",
+          "default": 90,
+          "minimum": 30
+        }
+      }
+    },
+    "smart_task": {
+      "type": "object",
+      "description": "Integration settings for /smart-task command",
+      "properties": {
+        "auto_capture": {
+          "type": "boolean",
+          "description": "Automatically capture activity after every /smart-task",
+          "default": true
+        },
+        "skip_trivial_tasks": {
+          "type": "boolean",
+          "description": "Skip activity capture for trivial tasks",
+          "default": true
+        },
+        "trivial_task_threshold_minutes": {
+          "type": "integer",
+          "description": "Task duration threshold in minutes to consider trivial",
+          "default": 5,
+          "minimum": 1
+        }
+      }
+    },
+    "notifications": {
+      "type": "object",
+      "description": "Notification and alert settings",
+      "properties": {
+        "promote_alerts": {
+          "type": "boolean",
+          "description": "Alert when patterns are promoted to lessons_learned.md",
+          "default": false
+        },
+        "cleanup_reminders": {
+          "type": "boolean",
+          "description": "Remind to run cleanup regularly",
+          "default": false
+        },
+        "weekly_summary": {
+          "type": "boolean",
+          "description": "Generate weekly activity summary reports",
+          "default": false
+        }
+      }
+    }
+  }
+}

@@ -93,15 +93,137 @@ Add entries under the appropriate section using this format:
 
 ---
 
+## 📊 Phase 5: Activity Capture (Living Documentation)
+
+After updating the knowledge base, you MUST capture development activity for living documentation:
+
+### Step 1: Read Current Session Transcript
+
+Use `session_read` to retrieve the completed session transcript:
+```
+session_read(session_id="<current_session_id>", include_transcript=true)
+```
+
+### Step 2: Scan for Activity Patterns
+
+Analyze the transcript for these patterns:
+
+**TODOs and Deferred Items:**
+- `TODO:`
+- `FIXME:`
+- `XXX:`
+- `HACK:`
+- `NOTE:`
+
+**Debug Statements:**
+- `console.log(`
+- `console.debug(`
+- `console.warn(`
+- `debugger`
+- `// DEBUG`
+- `/* DEBUG */`
+
+**Errors and Exceptions:**
+- `Error:`
+- `throw new Error`
+- `catch (error)`
+- `exception`
+- `failed`
+- `Failed to`
+
+### Step 3: Extract Context
+
+For each pattern found, capture:
+- **Date**: Current session date
+- **Category/Tag**: Auto-detect based on file path (e.g., `#auth` from `src/auth/`)
+- **Location**: File path and line number
+- **Context**: Brief description or surrounding code
+- **Severity**: High (errors), Medium (TODOs), Low (debug notes)
+
+### Step 4: Update Activity Log
+
+Read `.opencode/memory/activity_log.md` and append captured entries to appropriate sections:
+
+**Active TODOs section:**
+```markdown
+### YYYY-MM-DD
+- **[TAG]** Description → `file/path.ext:line`
+```
+
+**Debug Notes section:**
+```markdown
+### YYYY-MM-DD
+- `file/path.ext:line` → pattern found
+```
+
+**Errors Observed section:**
+```markdown
+### YYYY-MM-DD
+- **[TAG]** Error description → `file/path.ext:line`
+  - Error details
+  - Root cause (if known)
+  - Status: Pending investigation
+```
+
+**Activity Summary section:**
+```markdown
+### Session: YYYY-MM-DD HH:MM
+- Duration: [calculated from session]
+- Tasks: [user's task description]
+- Files modified: [count]
+- TODOs created: [count]
+- Debug statements: [count]
+- Errors encountered: [count]
+```
+
+### Step 5: Update Tags Index
+
+Update the Tags Index section to reflect new entries:
+```markdown
+### #tag
+- Active TODOs: [count]
+- Debug notes: [count]
+- Errors: [count]
+```
+
+### Step 6: Auto-Promote Recurring Patterns (Optional)
+
+If the user passed `--auto-promote` flag or configuration enables it:
+
+1. **Check for recurring errors** (3+ occurrences in activity log)
+2. **Check for recurring TODOs** (unresolved for >14 days)
+3. **Promote to lessons_learned.md** if criteria met:
+   - Add to "Don'ts" section for error patterns
+   - Add to "Do's" section for successful patterns
+   - Add to "Edge Cases" for recurring gotchas
+
+### Step 7: Save Activity Log
+
+Use `write` tool to save the updated `.opencode/memory/activity_log.md`
+
+### When to Skip Activity Capture
+
+You MAY skip this phase if:
+- ✅ Task was trivial (<5 minutes, single file change)
+- ✅ User explicitly requested with `--no-activity` flag
+- ✅ No activity patterns found in session
+
+**Otherwise**: Always complete Phase 5 to maintain living documentation.
+
+---
+
 ## 🎯 The Goal
 
-Continual Learning means:
+Continual Learning with Living Documentation means:
 - Every task makes you smarter
 - Every mistake becomes a lesson
 - Every success becomes a pattern
+- Every TODO gets tracked
+- Every debug statement gets noted
 - Future tasks benefit from past experience
+- Development activity is transparent and searchable
 
-**Remember**: This is a loop. Each task improves the knowledge base, which in turn improves future task execution.
+**Remember**: This is a loop. Each task improves the knowledge base and activity log, which in turn improves future task execution.
 
 ---
 
